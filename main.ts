@@ -1,3 +1,4 @@
+let nombre = 0
 function Jaune () {
     pins.digitalWritePin(DigitalPin.P1, 1)
 }
@@ -8,7 +9,7 @@ function Orange () {
     pins.digitalWritePin(DigitalPin.P8, 1)
 }
 input.onButtonPressed(Button.A, function () {
-    if (true) {
+    if (nombre == 1) {
         Blanc()
         basic.pause(5000)
         pins.digitalWritePin(DigitalPin.P16, 0)
@@ -20,14 +21,18 @@ function Vert () {
 function Blanc () {
     pins.digitalWritePin(DigitalPin.P16, 1)
 }
-while (true) {
+basic.forever(function () {
+    Orange()
     Vert()
     basic.pause(5000)
     pins.digitalWritePin(DigitalPin.P0, 0)
     Jaune()
     basic.pause(2000)
     pins.digitalWritePin(DigitalPin.P1, 0)
+    nombre += 1
     Rouge()
     basic.pause(1000)
     pins.digitalWritePin(DigitalPin.P2, 0)
-}
+    nombre += -1
+    basic.showNumber(nombre)
+})
